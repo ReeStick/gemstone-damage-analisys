@@ -66,8 +66,6 @@ print(labels.shape)
 images = images/255
 labels = labels/255
 
-# model = tf.keras.models.load_model('model')
-
 model = create_model()  
 print(model.summary())
 

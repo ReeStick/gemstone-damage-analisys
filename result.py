@@ -1,18 +1,11 @@
 import numpy as np
 import cv2
-import os
-import random
 import tensorflow as tf
 
 
 h,w = 512,512
-num_cases = 3
 
 model = tf.keras.models.load_model('model')
-
-lowSevere = 1
-midSevere = 2
-highSevere = 4
 
 def image_to_res(f):
     print(f)
@@ -38,12 +31,12 @@ def image_to_res(f):
      for j in range(test_img.shape[1]):
           if(resized_test_out[i,j]>40):
             test_img[i,j,0]=test_img[i,j,0] + resized_test_out[i,j]
-            resized_test_out[i,j] = highSevere
+            resized_test_out[i,j] = 4
           else:
             resized_test_out[i,j] = 0
 
     M = cv2.moments(resized_test_out)
-    maxMomentArea = resized_test_out.shape[1]*resized_test_out.shape[0]*highSevere
+    maxMomentArea = resized_test_out.shape[1]*resized_test_out.shape[0]*4
     print("0th Moment = " , (M["m00"]*100/maxMomentArea), "%")
 
     test_img = np.clip(test_img,0,255)
